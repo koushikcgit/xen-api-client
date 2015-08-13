@@ -1917,6 +1917,33 @@ module ClientF = functor(X : IO) ->struct
         let sr = rpc_of_ref_SR sr in
         
         rpc_wrapper rpc "Async.SR.disable_database_replication" [ session_id; sr ] >>= fun x -> return (ref_task_of_rpc  x)
+      (**  *)
+       let get_data_sources ~rpc ~session_id ~sr =
+         let session_id = rpc_of_ref_session session_id in
+         let sr = rpc_of_ref_SR sr in
+      
+         rpc_wrapper rpc "SR.get_data_sources" [ session_id; sr ] >>= fun x -> return (data_source_t_set_of_rpc  x)
+      (**  *)
+       let record_data_source ~rpc ~session_id ~sr ~data_source =
+        let session_id = rpc_of_ref_session session_id in
+        let sr = rpc_of_ref_SR sr in
+        let data_source = rpc_of_string data_source in
+      
+        rpc_wrapper rpc "SR.record_data_source" [ session_id; sr; data_source ] >>= fun x -> return (ignore x)
+      (**  *)
+      let query_data_source ~rpc ~session_id ~sr ~data_source =
+        let session_id = rpc_of_ref_session session_id in
+        let sr = rpc_of_ref_SR sr in
+        let data_source = rpc_of_string data_source in
+      
+        rpc_wrapper rpc "SR.query_data_source" [ session_id; sr; data_source ] >>= fun x -> return (float_of_rpc  x)
+      (**  *)
+      let forget_data_source_archives ~rpc ~session_id ~sr ~data_source =
+        let session_id = rpc_of_ref_session session_id in
+        let sr = rpc_of_ref_SR sr in
+        let data_source = rpc_of_string data_source in
+      
+        rpc_wrapper rpc "SR.forget_data_source_archives" [ session_id; sr; data_source ] >>= fun x -> return (ignore x)
     end
     module VDI = struct
       (**  *)

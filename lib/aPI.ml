@@ -804,6 +804,10 @@ module type API = sig
       val assert_supports_database_replication : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> ref_task
       val enable_database_replication : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> ref_task
       val disable_database_replication : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> ref_task
+      val get_data_sources : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> data_source_t_set
+      val record_data_source : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> data_source:string -> unit
+      val query_data_source : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> data_source:string -> float
+      val forget_data_source_archives : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> sr:ref_SR -> data_source:string -> unit
     end
     module VDI : sig
       val create : rpc:(Rpc.call -> Rpc.response) -> session_id:ref_session -> name_label:string -> name_description:string -> sR:ref_SR -> virtual_size:int64 -> _type:vdi_type -> sharable:bool -> read_only:bool -> other_config:string_to_string_map -> xenstore_data:string_to_string_map -> sm_config:string_to_string_map -> tags:string_set -> ref_task
